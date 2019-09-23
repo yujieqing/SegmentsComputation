@@ -1,0 +1,3 @@
+id, raytracing,tradition
+0, 7.756,1187.98
+1, 8.253,
