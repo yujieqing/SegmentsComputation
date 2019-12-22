@@ -88,7 +88,7 @@ bool is_between_lon_range(double lower_boundary, double upper_boundary, double l
 	return (dlon <= lon_10);
 }
 
-bool is_a_valid_ray(double pt1[3], double pt2[3], double minCoords[3], double maxCoords[3], double* t_firstLast)
+bool is_a_valid_ray(double pt1[3], double pt2[3], double minCoords[3], double maxCoords[3], double* t_firstLast=NULL)
 {
 	/////////////////////////////////////////////////////////////////////////////
 	//1、计算射线与顶底球面的交点及对应的t vector

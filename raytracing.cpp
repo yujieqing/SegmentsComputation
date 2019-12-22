@@ -148,7 +148,6 @@ int t_vector_to_index_and_length(NEXTVISIT* t_vec_each_surf, int num_of_t_vector
 	int i = 0;//starting from the first t-value
 	while (i < num_of_t_vector)
 	{
-
 		if ((i + 1) < num_of_t_vector && (t_vec_each_surf[i + 1].t_vector - t_vec_each_surf[i].t_vector) < THRESHOLD_T_OF_TWO_POINTS)
 			//the ray is crossing two or three splitting surfaces at the same time
 		{
@@ -186,12 +185,25 @@ int t_vector_to_index_and_length(NEXTVISIT* t_vec_each_surf, int num_of_t_vector
 			segment_length[vox_index].index[2] = segment_length[vox_index - 1].index[RDIM] + t_vec_each_surf[i].next_visit[RDIM];
 			segment_length[vox_index].id = segment_length[vox_index].index[RDIM] * dim10 + segment_length[vox_index].index[LATDIM] * (num_of_coords[LONDIM] - 1) + segment_length[vox_index].index[LONDIM];
 
+
 			vox_index++;
 			i = i + 1;
 		}
-
+		if (segment_length[vox_index-1].index[0] >= num_of_coords[LONDIM]-1) {
+			vox_index--;
+			break; 
+		}
+		if (segment_length[vox_index-1].index[1] >= num_of_coords[LATDIM]-1) { 
+			vox_index--; 
+			break; 
+		}
+		if (segment_length[vox_index-1].index[2] >= num_of_coords[RDIM]-1) {
+			vox_index--; 
+			break; 
+		}
 	}
-	int num_of_voxel = vox_index - 1;	//the last voxel is outside the range of the voxel model, and should be removed
+	//int num_of_voxel = vox_index - 1;	//the last voxel is outside the range of the voxel model, and should be removed
+	int num_of_voxel = vox_index ;	//the last voxel is outside the range of the voxel model, and should be removed
 
 	//calculte the absolute length for each segment according to two consecutive t-values
 	for (int i = 0; i < num_of_voxel; i++)

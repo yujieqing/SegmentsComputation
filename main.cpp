@@ -11,7 +11,7 @@
 #include <iostream>
 #include<list>
 #include <chrono>
-#define NUMOFMODELS 10
+#define NUMOFMODELS 1
 using namespace std;
 
 bool cmpfunction2(INDEX_LENGTH& a, INDEX_LENGTH & b) {
@@ -330,8 +330,13 @@ int main()
 {
 	string ray_file = "input/rayCoordinates.txt";
 	string path = "input/voxelModels/";
+	//string ray_file = "d:/coord.txt";
+	//string path = "d:/";
+	//string voxelFiles[NUMOFMODELS] = {
+	//	"1.xml","2.xml","3.xml","4.xml","5.xml","6.xml","7.xml","8.xml","9.xml","10.xml"
+	//};
 	string voxelFiles[NUMOFMODELS] = {
-		"1.xml","2.xml","3.xml","4.xml","5.xml","6.xml","7.xml","8.xml","9.xml","10.xml"
+	"vox.xml"
 	};
 	const char runtimeFile[]= "output/time_cost.txt";
 	ofstream ofile(runtimeFile);
@@ -348,6 +353,11 @@ int main()
 		read_voxel_model((path+voxelFiles[i]).c_str(), split_surf_coords, num_of_split_surfs);
 		std::cout << "start ray tracing job " << i<<endl;
 		chrono::high_resolution_clock::time_point tt1 = chrono::high_resolution_clock::now();
+
+		double minCoords[3] = { split_surf_coords[LONDIM][0],split_surf_coords[LATDIM][0],split_surf_coords[RDIM][0] };
+		double maxCoords[3] = { split_surf_coords[LONDIM][num_of_split_surfs[LONDIM] - 1],split_surf_coords[LATDIM][num_of_split_surfs[LATDIM] - 1],split_surf_coords[RDIM][num_of_split_surfs[RDIM] - 1] };
+
+		bool b=is_a_valid_ray(rays,rays+3, minCoords, maxCoords,NULL);
 		segments_compuation_by_raytracing(rays, numOfRay, split_surf_coords, num_of_split_surfs, segments);
 		chrono::high_resolution_clock::time_point tt2 = chrono::high_resolution_clock::now();
 
