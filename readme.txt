@@ -1,3 +1,5 @@
+See https://github.com/yujieqing/Geometric-Matrix-For-Ionospheric-Tomogrphy for an update version.
+
 This code is for segments computation during the process of voxel-based ionosphere tomography inversion. Both ray tracing and tradition method of segments compuation were implemented. The code is tested under VS2017 compiler. 
 The output segments can be visualized by paraview or VisIT software after conversion using scripts 'toVtp.py'. To use the script, python3.7 is required and vtk libary should be installed.  
 ./
